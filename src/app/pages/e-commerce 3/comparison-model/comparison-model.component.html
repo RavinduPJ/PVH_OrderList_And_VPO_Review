@@ -1,0 +1,110 @@
+<!-- Model -->
+<ng-template #content let-modal let-ref="dialogRef" class="resultContainer">
+  <div class="modal-header">
+    <h6 class="modal-title text-center">OB & GTN Comparison Result</h6>
+    <button class="downloadButton" (click)="downloadExcel()">Download Excel</button>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+      <nb-icon icon="close"></nb-icon>
+    </button>
+  </div>
+  <div class="modal-body">
+    <table id="table" class="table w-auto small table-sm table-striped table-bordered table-responsive">
+      <thead>
+        <tr>
+          <th colspan="8" style="font-size: 16px;">Order Book Table</th>
+          <th></th>
+          <th colspan="6" style="font-size: 16px;">GTN Table</th>
+        </tr>
+        <tr>
+          <th>Key</th>
+          <th>FOB Price</th>
+          <th>Req Del Date</th>
+          <th>Plan Del Date</th>
+          <th>Garment Fabrication</th>
+          <th>Delivery Term</th>
+          <th>Shipment Mode</th>
+          <th>CO Qty</th>
+          <th></th>
+          <th>Unit Price</th>
+          <th>Shipment Window End Date</th>
+          <th>Fiber Content</th>
+          <th>Delivery Term</th>
+          <th>Last Shipment Method</th>
+          <th>Customs Units</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let x of data">
+          <td>{{ x.compositeKey }}</td>
+          <td [ngStyle]="{'background-color':x.UnitPrice === x.FOBPrice ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.FOBPrice }}
+          </td>
+          <td [ngStyle]="{'background-color':x.SWED === x.ReqDelDateComp ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.ReqDelDate }}
+          </td>
+          <td [ngStyle]="{'background-color':x.SWED === x.PlanDelDateComp ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.PlanDelDate }}
+          </td>
+          <td [ngStyle]="{'background-color':x.FabricContentComp === x.FabricContent ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.GarmentFabrication }}
+          </td>
+          <td [ngStyle]="{'background-color':x.DeliveryTermComp.includes(x.DeliveryTerm) ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.DeliveryTerm }}
+          </td>
+          <td [ngStyle]="{'background-color':x.LineShipMethod === x.ShipmentModeComp ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.ShipmentMode }}
+          </td>
+          <td [ngStyle]="{'background-color':x.CustomsUnits === x.COQty ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.COQty }}
+          </td>
+          <td></td>
+          <td [ngStyle]="{'background-color':x.UnitPrice === x.FOBPrice ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.UnitPrice }}
+          </td>
+          <td> {{ x.SWED }} </td>
+          <td [ngStyle]="{'background-color':x.FabricContentComp === x.FabricContent ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.FabricContent }}
+          </td>
+          <td [ngStyle]="{'background-color':x.DeliveryTermComp.includes(x.DeliveryTerm) ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.DeliveryTerm1 }}
+          </td>
+          <td [ngStyle]="{'background-color':x.LineShipMethod === x.ShipmentModeComp ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.LineShipMethod }}
+          </td>
+          <td [ngStyle]="{'background-color':x.CustomsUnits === x.COQty ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.CustomsUnits }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <style type="text/css">
+    .red
+    {
+        background-color:rgb(252, 19, 19);
+    }
+  </style>
+  <!-- pagination -->
+  <!-- <div class="modal-footer justify-content-center">
+    <n-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize" [boundaryLinks]="true"
+      (pageChange)="refresh()">
+      <ng-template ngbPaginationPages let-page let-pages="pages">
+        <li class="ngb-custom-pages-item" *ngIf="pages.length > 0">
+          <div class="form-group d-flex flex-nowrap px-2">
+            <label id="paginationInputLabel" for="paginationInput" class="col-form-label mr-2 ml-1"
+              style="margin-right:5px;">
+              Page
+            </label>
+            <input #i type="text" inputmode="numeric" pattern="[0-9]*" class="form-control custom-pages-input"
+              id="paginationInput" [value]="page" (keyup.enter)="selectPage(i.value)" (blur)="selectPage(i.value)"
+              (input)="formatInput($any($event).target)" aria-labelledby="paginationInputLabel paginationDescription"
+              style="width: 2.5rem" />
+            <span id="paginationDescription" class="col-form-label text-nowrap px-2">
+              of {{pages.length}}
+            </span>
+          </div>
+        </li>
+      </ng-template>
+    </n-pagination>
+  </div> -->
+</ng-template>

@@ -1,0 +1,103 @@
+<!-- Model -->
+<ng-template #content let-modal let-ref="dialogRef" class="resultContainer">
+  <div class="modal-header">
+    <h6 class="modal-title text-center">AA Sheet & M3 Shipment Plan Comparison Result</h6>
+    <button class="downloadButton" (click)="downloadExcel()">Download Excel</button>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+      <nb-icon icon="close"></nb-icon>
+    </button>
+  </div>
+  <div class="modal-body">
+    <table id="table" class="table w-auto small table-sm table-striped table-bordered table-responsive">
+      <thead>
+        <tr>
+          <th colspan="8" style="font-size: 16px;">AA Sheet Table</th>
+          <th></th>
+          <th colspan="6" style="font-size: 16px;">M3 Shipment Plan Table</th>
+        </tr>
+        <tr>
+          <th>Key(Season-ColorName-CustomStyleNo-VOPNo-COQty)</th>
+          <th>Global Style</th>
+          <th>Color Code</th>
+          <th>Destination</th>
+          <th>Size</th>
+          <th>Factory / Revised Factory</th>
+          <th>NRF</th>
+          <th>FOB Price / Revised FOB</th>
+          <th></th>
+          <th>Customer Style</th>
+          <th>Color</th>
+          <th>Destination</th>
+          <th>Size</th>
+          <th>Prod Factory / Lead Factory</th>
+          <th>FOB Price Per Piece</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let x of data">
+          <td>{{ x.compositeKey }}</td>
+
+          <td>{{ x.GlobalStyle }}</td>
+          <td>{{ x.ColorCode }}</td>
+          <td>{{ x.Destination }}</td>
+          <td [ngStyle]="{'background-color':x.SizeM3 === x.SizeComp ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.Size }}
+          </td>
+
+          <td [ngStyle]="{'background-color':x.ForRF === x.PForLFComp ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.ForRF }}
+          </td>
+          <td [ngStyle]="{'background-color':x.NRF === x.NRFComp ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.NRF }}
+          </td>
+          <td [ngStyle]="{'background-color':x.FOBorRFOB === x.FOBPPP ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.FOBorRFOB }}
+          </td>
+          <td></td>
+          <td>{{ x.CustomerStyle }}</td>
+          <td>{{ x.Color }}</td>
+          <td>{{ x.DestinationComp }}</td>
+          <td [ngStyle]="{'background-color':x.SizeM3 === x.SizeComp ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.SizeM3 }}
+          </td>
+
+          <td [ngStyle]="{'background-color':x.ForRF === x.PForLFComp ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.PForLF }}
+          </td>
+          <td [ngStyle]="{'background-color':x.FOBorRFOB === x.FOBPPP ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.FOBPPP }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <style type="text/css">
+    .red
+    {
+        background-color:rgb(252, 19, 19);
+    }
+  </style>
+  <!-- pagination -->
+  <!-- <div class="modal-footer justify-content-center">
+    <n-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize" [boundaryLinks]="true"
+      (pageChange)="refresh()">
+      <ng-template ngbPaginationPages let-page let-pages="pages">
+        <li class="ngb-custom-pages-item" *ngIf="pages.length > 0">
+          <div class="form-group d-flex flex-nowrap px-2">
+            <label id="paginationInputLabel" for="paginationInput" class="col-form-label mr-2 ml-1"
+              style="margin-right:5px;">
+              Page
+            </label>
+            <input #i type="text" inputmode="numeric" pattern="[0-9]*" class="form-control custom-pages-input"
+              id="paginationInput" [value]="page" (keyup.enter)="selectPage(i.value)" (blur)="selectPage(i.value)"
+              (input)="formatInput($any($event).target)" aria-labelledby="paginationInputLabel paginationDescription"
+              style="width: 2.5rem" />
+            <span id="paginationDescription" class="col-form-label text-nowrap px-2">
+              of {{pages.length}}
+            </span>
+          </div>
+        </li>
+      </ng-template>
+    </n-pagination>
+  </div> -->
+</ng-template>

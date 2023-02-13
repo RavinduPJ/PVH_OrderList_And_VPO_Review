@@ -1,0 +1,79 @@
+<!-- Model -->
+<ng-template #content let-modal let-ref="dialogRef">
+  <div class="modal-header">
+    <h6 class="modal-title text-center">Shipment Advisor and OB Comparison Result</h6>
+    <button class="downloadButton" (click)="downloadToExcel()">Download Excel</button>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+      <nb-icon icon="close"></nb-icon>
+    </button>
+  </div>
+  <div class="modal-body">
+    <table id="table" class="table w-auto small table-sm table-striped table-bordered table-responsive">
+      <thead>
+        <tr>
+          <th colspan="7" style="font-size: 16px;">Shipment Advisor Table</th>
+          <th></th>
+          <th colspan="6" style="font-size: 16px;">Order Book Table</th>
+        </tr>
+        <tr>
+          <th>Key(CustomStyleNo-ColorName-VOPNo-COQty)</th>
+          <th>Production Factory</th>
+          <th>Mode</th>
+          <th>Destination</th>
+          <th>Hand Over Date</th>
+          <th>Original Qty</th>
+          <th>BA FOB</th>
+          <th></th>
+          <th>Prod Warehouse</th>
+          <th>Shipment Mode</th>
+          <th>Destination</th>
+          <th>Plan Del Date</th>
+          <th>CO Qty</th>
+          <th>FOB Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let x of data">
+          <td>{{ x.compositeKey }}</td>
+          <td [ngStyle]="{'background-color':x.productionFactory === x.prodWarehouse ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.productionFactory }}
+          </td>
+          <td [ngStyle]="{'background-color':x.shipmentMode === x.mode ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.mode }}
+          </td>
+          <td [ngStyle]="{'background-color':x.destination === x.SAdestination ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.SAdestination }}
+          </td>
+          <td [ngStyle]="{'background-color':x.planDelDate === x.handOverDate ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.handOverDate }}
+          </td>
+          <td [ngStyle]="{'background-color':x.COQty === x.originalQty ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.originalQty }}
+          </td>
+          <td [ngStyle]="{'background-color':x.FOBPrice === x.BAFob ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.BAFob }}
+          </td>
+          <td></td>
+          <td [ngStyle]="{'background-color':x.productionFactory === x.prodWarehouse ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.prodWarehouse }}
+          </td>
+          <td [ngStyle]="{'background-color':x.shipmentMode === x.mode ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.shipmentMode }}
+          </td>
+          <td [ngStyle]="{'background-color':x.destination === x.SAdestination ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.destination }}
+          </td>
+          <td [ngStyle]="{'background-color':x.planDelDate === x.handOverDate ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.planDelDate }}
+          </td>
+          <td [ngStyle]="{'background-color':x.COQty === x.originalQty ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.COQty }}
+          </td>
+          <td [ngStyle]="{'background-color':x.FOBPrice === x.BAFob ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.FOBPrice }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</ng-template>

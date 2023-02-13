@@ -1,0 +1,93 @@
+<!-- Model -->
+<ng-template #content let-modal let-ref="dialogRef">
+    <div>
+        <div class="modal-header">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <h6 class="modal-title text-center">Order Book Table</h6>
+                    </div>
+                    <div class="col">
+                        <h6 class="modal-title text-center">New Table</h6>
+                    </div>
+                </div>
+            </div>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+                <nb-icon icon="close"></nb-icon>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <table id="table"
+                            class="table w-auto small table-sm table-striped table-bordered table-responsive">
+                            <thead>
+                                <tr>
+                                    <th>Comparision Key</th>
+                                    <th>Prod Warehouse</th>
+                                    <th>Shipment Mode</th>
+                                    <th>Req Del Date</th>
+                                    <th>Plan Del Date</th>
+                                    <th>CO Qty</th>
+                                    <th></th>
+                                    <th>Factory Vendor</th>
+                                    <th>Mode of Ship</th>
+                                    <th>Original Mast Ownership Date</th>
+                                    <th>Plan Mast Ownership Date</th>
+                                    <th>Order Quantity</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let x of data">
+                                    <td>{{ x.compositeKey }}</td>
+                                    <td
+                                        [ngStyle]="{'background-color':x.prodWarehouse === x.factoryVendor ? '' : 'rgb(252, 19, 19)'}">
+                                        {{ x.prodWarehouse }}</td>
+                                    <td
+                                        [ngStyle]="{'background-color':x.shipmentMode === x.modeOfShip ? '' : 'rgb(252, 19, 19)'}">
+                                        {{ x.shipmentMode }}
+                                    </td>
+                                    <td
+                                        [ngStyle]="{'background-color':x.reqDeldate === x.originalMastOwnershipDate ? '' : 'rgb(252, 19, 19)'}">
+                                        {{ x.reqDeldate }}
+                                    </td>
+                                    <td
+                                        [ngStyle]="{'background-color':x.planDelDate === x.planMASTOwnershipDate ? '' : 'rgb(252, 19, 19)'}">
+                                        {{ x.planDelDate }}
+                                    </td>
+                                    <td
+                                        [ngStyle]="{'background-color':x.COQty === x.orderQuantity ? '' : 'rgb(252, 19, 19)'}">
+                                        {{ x.COQty }}
+                                    </td>
+                                    <td></td>
+                                    <td
+                                        [ngStyle]="{'background-color':x.prodWarehouse === x.factoryVendor ? '' : 'rgb(252, 19, 19)'}">
+                                        {{ x.factoryVendor }}
+                                    </td>
+                                    <td
+                                        [ngStyle]="{'background-color':x.shipmentMode === x.modeOfShip ? '' : 'rgb(252, 19, 19)'}">
+                                        {{ x.modeOfShip }}
+                                    </td>
+                                    <td
+                                        [ngStyle]="{'background-color':x.reqDeldate === x.originalMastOwnershipDate ? '' : 'rgb(252, 19, 19)'}">
+                                        {{ x.originalMastOwnershipDate }}
+                                    </td>
+                                    <td
+                                        [ngStyle]="{'background-color':x.planDelDate === x.planMASTOwnershipDate ? '' : 'rgb(252, 19, 19)'}">
+                                        {{ x.planMASTOwnershipDate }}
+                                    </td>
+                                    <td
+                                        [ngStyle]="{'background-color':x.COQty === x.orderQuantity ? '' : 'rgb(252, 19, 19)'}">
+                                        {{ x.orderQuantity }}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</ng-template>

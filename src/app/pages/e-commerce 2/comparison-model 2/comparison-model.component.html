@@ -1,0 +1,170 @@
+<!-- Model -->
+<ng-template #content let-modal let-ref="dialogRef" class="resultContainer">
+  <div class="modal-header">
+    <h6 class="modal-title text-center">APL - Order Book & PVH Shimpent Status Comparison Result</h6>
+    <button class="downloadButton" (click)="downloadExcel()">Download Excel</button>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+      <nb-icon icon="close"></nb-icon>
+    </button>
+  </div>
+  <div class="modal-body">
+    <table id="table" class="table w-auto small table-sm table-striped table-bordered table-responsive">
+      <thead>
+        <tr>
+          <th colspan="16" style="font-size: 16px;">APL - Order Book</th>
+          <th></th>
+          <th colspan="15" style="font-size: 16px;">PVH Shipment Status</th>
+        </tr>
+        <tr>
+          <th>Key(VPO No-Customer Style No-Color Name)</th>
+          <th>VPO No</th>
+          <th>Customer Style Number</th>
+          <th>Color Name</th>
+          <th>Garment Fabrication</th>
+          <th>Req Del Date</th>
+          <th>CO Qty</th>
+          <th>FOB Price</th>
+          <th>Destination</th>
+          <th>Plan Del Date</th>
+          <th>Shipment Mode</th>
+          <th>Delivery Term</th>
+          <th>Season</th>
+          <th>Item Description</th>
+          <th>CPO</th>
+          <th>Z Option</th>
+          <th></th>
+          <th>PO Number</th>
+          <th>Buyer Item</th>
+          <th>Color</th>
+          <th>Fiber Content</th>
+          <th>Ship Window End Date</th>
+          <th>Quantity</th>
+          <th>Unit Price</th>
+          <th>Country</th>
+          <th>Planner's Del Date(Req Del Date)</th>
+          <th>Line Ship Method</th>
+          <th>Delivery Term</th>
+          <th>Season</th>
+          <th>Long Description</th>
+          <th>Order Type</th>
+          <th>PO Source</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let x of data">
+          <td>{{ x.compositeKey }}</td>
+          <td>{{ x.VPONo }}</td>
+          <td>{{ x.CustStyleNo }}</td>
+          <td>{{ x.ColorName }}</td>
+          
+          <td [ngStyle]="{'background-color':x.FabricContent === x.FabricContentComp ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.GarmentFabrication }}
+          </td>
+          <td [ngStyle]="{'background-color':x.ReqDelDateComp === x.ReqDelDate ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.ReqDelDate }}
+          </td>
+          <td [ngStyle]="{'background-color':x.COQty === x.Quantity ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.COQty }}
+          </td>
+          <td [ngStyle]="{'background-color':x.FOBPrice === x.UnitPrice ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.FOBPrice }}
+          </td>
+          <td [ngStyle]="{'background-color':x.DestinationComp === x.Country ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.Destination }}
+          </td>
+          <td [ngStyle]="{'background-color':x.PlanDelDate === x.PlannerDelDate ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.PlanDelDate }}
+          </td>
+          <td [ngStyle]="{'background-color':x.ShipmentModeComp === x.LineShipMethod ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.ShipmentMode }}
+          </td>
+          <td [ngStyle]="{'background-color':x.DeliveryTerm1.includes(x.DeliveryTerm) ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.DeliveryTerm }}
+          </td>
+          <td [ngStyle]="{'background-color':x.Season === x.SeasonNameComp ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.Season }}
+          </td>
+          <td [ngStyle]="{'background-color':x.ItemDescription === x.LongDscription ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.ItemDescription }}
+          </td>
+          <td [ngStyle]="{'background-color':x.OrderType === x.OrderTypeComp ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.CPO }}
+          </td>
+          <td [ngStyle]="{'background-color':x.ZOptionComp === x.POSource ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.ZOption }}
+          </td>
+          <td></td>
+          <td>{{ x.PO }}</td>
+          <td>{{ x.BuyerItem }}</td>
+          <td>{{ x.Color }}</td>
+
+          <td [ngStyle]="{'background-color':x.FabricContent === x.FabricContentComp ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.FabricContent }}
+          </td>
+          <td [ngStyle]="{'background-color':x.ReqDelDateComp === x.ReqDelDate ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.SWED }}
+          </td>
+          <td [ngStyle]="{'background-color':x.COQty === x.Quantity ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.Quantity }}
+          </td>
+          <td [ngStyle]="{'background-color':x.FOBPrice === x.UnitPrice ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.UnitPrice }}
+          </td>
+          <td [ngStyle]="{'background-color':x.DestinationComp === x.Country ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.Country }}
+          </td>
+          <td [ngStyle]="{'background-color':x.PlanDelDate === x.PlannerDelDate ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.PlannerDelDate }}
+          </td>
+          <td [ngStyle]="{'background-color':x.ShipmentModeComp === x.LineShipMethod ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.LineShipMethod }}
+          </td>
+          <td [ngStyle]="{'background-color':x.DeliveryTerm1.includes(x.DeliveryTerm) ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.DeliveryTerm1 }}
+          </td>
+          <td [ngStyle]="{'background-color':x.Season === x.SeasonNameComp ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.SeasonName }}
+          </td>
+          <td [ngStyle]="{'background-color':x.ItemDescription === x.LongDscription ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.LongDscription }}
+          </td>
+          <td [ngStyle]="{'background-color':x.OrderType === x.OrderTypeComp ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.OrderTypeComp }}
+          </td>
+          <td [ngStyle]="{'background-color':x.ZOptionComp === x.POSource ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.POSource }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <style type="text/css">
+    .red
+    {
+        background-color:rgb(252, 19, 19);
+    }
+  </style>
+  <!-- pagination -->
+  <!-- <div class="modal-footer justify-content-center">
+    <n-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize" [boundaryLinks]="true"
+      (pageChange)="refresh()">
+      <ng-template ngbPaginationPages let-page let-pages="pages">
+        <li class="ngb-custom-pages-item" *ngIf="pages.length > 0">
+          <div class="form-group d-flex flex-nowrap px-2">
+            <label id="paginationInputLabel" for="paginationInput" class="col-form-label mr-2 ml-1"
+              style="margin-right:5px;">
+              Page
+            </label>
+            <input #i type="text" inputmode="numeric" pattern="[0-9]*" class="form-control custom-pages-input"
+              id="paginationInput" [value]="page" (keyup.enter)="selectPage(i.value)" (blur)="selectPage(i.value)"
+              (input)="formatInput($any($event).target)" aria-labelledby="paginationInputLabel paginationDescription"
+              style="width: 2.5rem" />
+            <span id="paginationDescription" class="col-form-label text-nowrap px-2">
+              of {{pages.length}}
+            </span>
+          </div>
+        </li>
+      </ng-template>
+    </n-pagination>
+  </div> -->
+</ng-template>

@@ -1,0 +1,79 @@
+<!-- Model -->
+<ng-template #content let-modal let-ref="dialogRef">
+  <div class="modal-header">
+    <h6 class="modal-title text-center">OTR & OB Comparison Result</h6>
+    <button class="downloadButton" (click)="downloadToExcel()">Download Excel</button>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+      <nb-icon icon="close"></nb-icon>
+    </button>
+  </div>
+  <div class="modal-body">
+    <table id="table" class="table w-auto small table-sm table-striped table-bordered table-responsive">
+      <thead>
+        <tr>
+          <th colspan="7" style="font-size: 16px;">OTR Table</th>
+          <th></th>
+          <th colspan="6" style="font-size: 16px;">Order Book Table</th>
+        </tr>
+        <tr>
+          <th>Key(Season-CustomStyleNo-VOPNo-ColorName-COQty)</th>
+          <th>Original Fty SAP #</th>
+          <th>Confirmed Ship Mode</th>
+          <th>Customer Code</th>
+          <th>OMOD (Original GAC)</th>
+          <th>Current System MOD (GAC)</th>
+          <th>Qty</th>
+          <th></th>
+          <th>Prod Warehouse</th>
+          <th>Shipment Mode</th>
+          <th>Destination</th>
+          <th>Req Del Date</th>
+          <th>Plan Del Date</th>
+          <th>CO Qty</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let x of data">
+          <td>{{ x.compositeKey }}</td>
+          <td [ngStyle]="{'background-color':x.prodWarehouse === x.originalFtySAP ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.originalFtySAP }}
+          </td>
+          <td [ngStyle]="{'background-color':x.shipmentMode === x.confirmedShipMode ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.confirmedShipMode }}
+          </td>
+          <td [ngStyle]="{'background-color':x.customerCode === x.destination ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.customerCode }}
+          </td>
+          <td [ngStyle]="{'background-color':x.reqDeldate === x.OMODOriginalGAC ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.OMODOriginalGAC }}
+          </td>
+          <td [ngStyle]="{'background-color':x.planDelDate === x.currentSystemMODGAC ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.currentSystemMODGAC }}
+          </td>
+          <td [ngStyle]="{'background-color':x.COQty === x.qty ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.qty }}
+          </td>
+          <td></td>
+          <td [ngStyle]="{'background-color':x.prodWarehouse === x.originalFtySAP ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.prodWarehouse }}
+          </td>
+          <td [ngStyle]="{'background-color':x.shipmentMode === x.confirmedShipMode ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.shipmentMode }}
+          </td>
+          <td [ngStyle]="{'background-color':x.customerCode === x.destination ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.destination }}
+          </td>
+          <td [ngStyle]="{'background-color':x.reqDeldate === x.OMODOriginalGAC ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.reqDeldate }}
+          </td>
+          <td [ngStyle]="{'background-color':x.planDelDate === x.currentSystemMODGAC ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.planDelDate }}
+          </td>
+          <td [ngStyle]="{'background-color':x.COQty === x.qty ? '' : 'rgb(252, 19, 19)'}">
+            {{ x.COQty }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</ng-template>

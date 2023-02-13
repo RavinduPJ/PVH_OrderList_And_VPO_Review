@@ -1,0 +1,167 @@
+<nb-card>
+  <nb-card-header>
+    <h3>BFF Order List</h3>
+  </nb-card-header>
+  <nb-card-body>
+
+    <!-- ORDER BOOK ELEMENT -->
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="fileUploadContainer orderBook" appDnd [ngClass]="(isOORProcessing || isOTRProcessing || isSAProcessing || isOLRProcessing ) && 'isProcessing'">
+          <div class="spinner-border loader" role="status" *ngIf="isOBProcessing">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <input type="file" #fileDropRef id="fileDropRef" accept=".xls,.xlsx"
+            (change)="onFileChange('OBFile', $event.target.files)"
+            [disabled]="isOORProcessing || isOTRProcessing || isSAProcessing || isOLRProcessing"
+           />
+          <h5>
+            Order Book
+          </h5>
+
+          <img *ngIf="!OBFileObject" src="assets/images/ic-upload-file.svg" width="45px" alt="">
+          <img *ngIf="!!OBFileObject" src="assets/images/ic-file.svg" width="30px" alt="file">
+
+          <h6>
+            {{OBFileObject ? OBFileObject.name : 'Drop File Here'}}
+            <span *ngIf="OBFileObject">({{formatBytes(OBFileObject.size)}})</span>
+          </h6>
+
+          <label class="browseButton" [ngClass]="OBFileObject && 'change'" for="fileDropRef">{{OBFileObject ? 'Change File' : 'Browse for file'}}</label>
+          <div *ngIf="OBFileObject" class="processButtonHolder">
+            <button nbButton class="bg-primary submit-btn" (click)="onUploadOBFile()">Upload Order Book</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-4">
+      <!-- OOR BOOK NEW ELEMENT -->
+      <div class="col-md-3">
+        <div class="fileUploadContainer" appDnd [ngClass]="(isOBProcessing || isOTRProcessing || isSAProcessing || isOLRProcessing) && 'isProcessing'">
+          <div class="spinner-border loader" role="status" *ngIf="isOORProcessing">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <input type="file" #fileDropRef id="fileDropRef" accept=".xls,.xlsx"
+            (change)="onFileChange('OORFile', $event.target.files)"
+            [disabled]="isOBProcessing || isOTRProcessing || isSAProcessing || isOLRProcessing"
+           />
+           <h5>
+            OOR File
+          </h5>
+
+          <img *ngIf="!OORFileObject" src="assets/images/ic-upload-file.svg" width="45px" alt="">
+          <img *ngIf="!!OORFileObject" src="assets/images/ic-file.svg" width="30px" alt="file">
+
+          <h6>
+            {{OORFileObject ? OORFileObject.name : 'Drop File Here'}}
+            <span *ngIf="OORFileObject">({{formatBytes(OORFileObject.size)}})</span>
+          </h6>
+
+          <label class="browseButton" [ngClass]="OORFileObject && 'change'" for="fileDropRef">{{OORFileObject ? 'Change File' : 'Browse for file'}}</label>
+          <div *ngIf="OORFileObject" class="processButtonHolder">
+            <button nbButton class="bg-primary submit-btn" (click)="onCompareOOR()">Upload & Compare OOR</button>
+          </div>
+        </div>
+      </div>
+      <!-- OOR BOOK NEW ELEMENT END -->
+
+      <!-- OTR NEW ELEMENT -->
+      <div class="col-md-3">
+        <div class="fileUploadContainer" appDnd [ngClass]="(isOBProcessing || isOORProcessing || isSAProcessing || isOLRProcessing) && 'isProcessing'">
+          <div class="spinner-border loader" role="status" *ngIf="isOTRProcessing">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <input type="file" #fileDropRef id="fileDropRef" accept=".xls,.xlsx"
+            (change)="onFileChange('OTRFile', $event.target.files)"
+            [disabled]="isOBProcessing || isOORProcessing || isSAProcessing || isOLRProcessing"
+          />
+
+          <h5>
+            OTR File
+          </h5>
+
+          <img *ngIf="!OTRFileObject" src="assets/images/ic-upload-file.svg" width="45px" alt="">
+          <img *ngIf="!!OTRFileObject" src="assets/images/ic-file.svg" width="30px" alt="file">
+
+          <h6>
+            {{OTRFileObject ? OTRFileObject.name : 'Drop File Here'}}
+            <span *ngIf="OTRFileObject">({{formatBytes(OTRFileObject.size)}})</span>
+          </h6>
+
+          <label class="browseButton" [ngClass]="OTRFileObject && 'change'" for="fileDropRef">{{OTRFileObject ? 'Change File' : 'Browse for file'}}</label>
+          <div *ngIf="OTRFileObject" class="processButtonHolder">
+            <button nbButton class="bg-primary submit-btn" (click)="onCompareOTR()">Upload & Compare OTR</button>
+          </div>
+        </div>
+      </div>
+
+      <!--OTR NEW ELEMENT END -->
+
+      <!-- SA NEW ELEMENT -->
+      <div class="col-md-3">
+        <div class="fileUploadContainer" appDnd [ngClass]="(isOBProcessing || isOORProcessing || isOTRProcessing || isOLRProcessing) && 'isProcessing'">
+          <div class="spinner-border loader" role="status" *ngIf="isSAProcessing">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <input type="file" #fileDropRef id="fileDropRef" accept=".xls,.xlsx"
+            (change)="onFileChange('SAFile', $event.target.files)"
+            [disabled]="isOBProcessing || isOORProcessing || isOTRProcessing || isOLRProcessing"
+          />
+
+          <h5>
+            Shipment Advice File
+          </h5>
+
+          <img *ngIf="!SAFileObject" src="assets/images/ic-upload-file.svg" width="45px" alt="">
+          <img *ngIf="!!SAFileObject" src="assets/images/ic-file.svg" width="30px" alt="file">
+
+          <h6>
+            {{SAFileObject ? SAFileObject.name : 'Drop File Here'}}
+            <span *ngIf="SAFileObject">({{formatBytes(SAFileObject.size)}})</span>
+          </h6>
+
+          <label class="browseButton" [ngClass]="SAFileObject && 'change'" for="fileDropRef">{{SAFileObject ? 'Change File' : 'Browse for file'}}</label>
+          <div *ngIf="SAFileObject" class="processButtonHolder">
+            <button nbButton class="bg-primary submit-btn" (click)="onCompareSA()">Upload & Compare SA</button>
+          </div>
+        </div>
+      </div>
+      <!--SA NEW ELEMENT END -->
+
+      <!-- OLR NEW ELEMENT -->
+      <div class="col-md-3">
+        <div class="fileUploadContainer" appDnd [ngClass]="(isOBProcessing || isOORProcessing || isOTRProcessing || isSAProcessing) && 'isProcessing'">
+          <div class="spinner-border loader" role="status" *ngIf="isOLRProcessing">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <input type="file" #fileDropRef id="fileDropRef" accept=".xls,.xlsx"
+            (change)="onFileChange('OLRFile', $event.target.files)"
+            [disabled]="isOBProcessing || isOORProcessing || isOTRProcessing || isSAProcessing"
+          />
+          <h5>
+            OLR File
+          </h5>
+          <img *ngIf="!OLRFileObject" src="assets/images/ic-upload-file.svg" width="45px" alt="">
+          <img *ngIf="!!OLRFileObject" src="assets/images/ic-file.svg" width="30px" alt="file">
+
+          <h6>
+            {{OLRFileObject ? OLRFileObject.name : 'Drop File Here'}}
+            <span *ngIf="OLRFileObject">({{formatBytes(OLRFileObject.size)}})</span>
+          </h6>
+
+          <label class="browseButton" [ngClass]="OLRFileObject && 'change'" for="fileDropRef">{{OLRFileObject ? 'Change File' : 'Browse for file'}}</label>
+          <div *ngIf="OLRFileObject" class="processButtonHolder">
+            <button nbButton class="bg-primary submit-btn" (click)="onCompareOLR()">Upload & Compare OLR</button>
+          </div>
+        </div>
+      </div>
+      <!--OLR NEW ELEMENT END -->
+    </div>
+  </nb-card-body>
+</nb-card>
+
+<ngx-comparison-model></ngx-comparison-model>
+<ngx-comparison-modal-otr></ngx-comparison-modal-otr>
+<ngx-comparison-modal-shipment></ngx-comparison-modal-shipment>
+<ngx-comparison-modal-new-file></ngx-comparison-modal-new-file>
+<ngx-comparison-modal-olr></ngx-comparison-modal-olr>

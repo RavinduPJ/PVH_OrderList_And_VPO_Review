@@ -1,0 +1,356 @@
+<nb-card>
+  <nb-card-header>
+    <h3>PVH VPO Review</h3>
+  </nb-card-header>
+  <nb-card-body>
+
+    <!-- Under development - RavinduJ - Starts -->
+    <!-- ORDER BOOK ELEMENT -->
+    <div class="row justify-content-center">
+      <div>
+        <h3>Order Book and PVH Shipment Status Comparision</h3>
+      </div>
+      <div class="col-md-3">
+        <div class="fileUploadContainer orderBook" appDnd [ngClass]="(isOORProcessing || isOTRProcessing || isSAProcessing || isOLRProcessing ) && 'isProcessing'">
+          <div class="spinner-border loader" role="status" *ngIf="isOBProcessing">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <input type="file" #fileDropRef id="fileDropRef" accept=".xls,.xlsx"
+            (change)="onFileChange('OBVPOFile', $event.target.files)"
+            [disabled]="isOORProcessing || isOTRProcessing || isSAProcessing || isOLRProcessing"
+           />
+          <h5>
+            Order Book
+          </h5>
+
+          <img *ngIf="!APLOBFileObject" src="assets/images/ic-upload-file.svg" width="45px" alt="">
+          <img *ngIf="!!APLOBFileObject" src="assets/images/ic-file.svg" width="30px" alt="file">
+
+          <h6>
+            {{APLOBFileObject ? APLOBFileObject.name : 'Drop File Here'}}
+            <span *ngIf="APLOBFileObject">({{formatBytes(APLOBFileObject.size)}})</span>
+          </h6>
+
+          <label class="browseButton" [ngClass]="APLOBFileObject && 'change'" for="fileDropRef">{{APLOBFileObject ? 'Change File' : 'Browse for file'}}</label>
+          <div *ngIf="APLOBFileObject" class="processButtonHolder">
+            <button nbButton class="bg-primary submit-btn" (click)="onUploadOB()">Upload Order Book</button>
+          </div>
+        </div>
+      </div>
+      <!-- OOR BOOK NEW ELEMENT -->
+      <div class="col-md-3">
+        <div class="fileUploadContainer" appDnd [ngClass]="(isOBProcessing || isOTRProcessing || isSAProcessing || isOLRProcessing) && 'isProcessing'">
+          <div class="spinner-border loader" role="status" *ngIf="isOORProcessing">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <input type="file" #fileDropRef id="fileDropRef" accept=".xls,.xlsx"
+          (change)="onFileChange('GTNFile', $event.target.files)"
+          [disabled]="isOBProcessing || isOTRProcessing || isSAProcessing || isOLRProcessing"
+          />
+          <h5>
+            GTN Report
+          </h5>
+          
+          <img *ngIf="!PVHSSFileObject" src="assets/images/ic-upload-file.svg" width="45px" alt="">
+          <img *ngIf="!!PVHSSFileObject" src="assets/images/ic-file.svg" width="30px" alt="file">
+          
+          <h6>
+            {{PVHSSFileObject ? PVHSSFileObject.name : 'Drop File Here'}}
+            <span *ngIf="PVHSSFileObject">({{formatBytes(PVHSSFileObject.size)}})</span>
+          </h6>
+          
+          <label class="browseButton" [ngClass]="PVHSSFileObject && 'change'" for="fileDropRef">{{PVHSSFileObject ? 'Change File' : 'Browse for file'}}</label>
+          <div *ngIf="PVHSSFileObject" class="processButtonHolder">
+            <button nbButton class="bg-primary submit-btn" (click)="onCompareGTN()">Upload & Compare GTN</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- OOR BOOK NEW ELEMENT END -->
+
+    <!-- ORDER BOOK ELEMENT -->
+    <div class="row justify-content-center">
+      <div>
+        <h3>GTN Report and Shipment plan size wise Report</h3>
+      </div>
+      <div class="col-md-3">
+        <div class="fileUploadContainer orderBook" appDnd [ngClass]="(isOORProcessing || isOTRProcessing || isSAProcessing || isOLRProcessing ) && 'isProcessing'">
+          <div class="spinner-border loader" role="status" *ngIf="isOBProcessing">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <input type="file" #fileDropRef id="fileDropRef" accept=".xls,.xlsx"
+            (change)="onFileChange('GTNFile', $event.target.files)"
+            [disabled]="isOORProcessing || isOTRProcessing || isSAProcessing || isOLRProcessing"
+           />
+          <h5>
+            GTN Report
+          </h5>
+
+          <img *ngIf="!PVHSSFileObject" src="assets/images/ic-upload-file.svg" width="45px" alt="">
+          <img *ngIf="!!PVHSSFileObject" src="assets/images/ic-file.svg" width="30px" alt="file">
+
+          <h6>
+            {{PVHSSFileObject ? PVHSSFileObject.name : 'Drop File Here'}}
+            <span *ngIf="PVHSSFileObject">({{formatBytes(PVHSSFileObject.size)}})</span>
+          </h6>
+
+          <label class="browseButton" [ngClass]="PVHSSFileObject && 'change'" for="fileDropRef">{{PVHSSFileObject ? 'Change File' : 'Browse for file'}}</label>
+          <div *ngIf="PVHSSFileObject" class="processButtonHolder">
+            <button nbButton class="bg-primary submit-btn" (click)="onUploadGTN()">Upload GTN</button>
+          </div>
+        </div>
+      </div>
+      <!-- OOR BOOK NEW ELEMENT -->
+      <div class="col-md-3">
+        <div class="fileUploadContainer" appDnd [ngClass]="(isOBProcessing || isOTRProcessing || isSAProcessing || isOLRProcessing) && 'isProcessing'">
+          <div class="spinner-border loader" role="status" *ngIf="isOORProcessing">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <input type="file" #fileDropRef id="fileDropRef" accept=".xls,.xlsx"
+          (change)="onFileChange('SPSWFile', $event.target.files)"
+          [disabled]="isOBProcessing || isOTRProcessing || isSAProcessing || isOLRProcessing"
+          />
+          <h5>
+            Shipment Plan Wise Report
+          </h5>
+          
+          <img *ngIf="!SPSWFileObject" src="assets/images/ic-upload-file.svg" width="45px" alt="">
+          <img *ngIf="!!SPSWFileObject" src="assets/images/ic-file.svg" width="30px" alt="file">
+          
+          <h6>
+            {{SPSWFileObject ? SPSWFileObject.name : 'Drop File Here'}}
+            <span *ngIf="SPSWFileObject">({{formatBytes(SPSWFileObject.size)}})</span>
+          </h6>
+          
+          <label class="browseButton" [ngClass]="SPSWFileObject && 'change'" for="fileDropRef">{{SPSWFileObject ? 'Change File' : 'Browse for file'}}</label>
+          <div *ngIf="SPSWFileObject" class="processButtonHolder">
+            <button nbButton class="bg-primary submit-btn" (click)="onCompareSPSW()">Upload & Compare GTN</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- OOR BOOK NEW ELEMENT END -->
+
+    <!-- ORDER BOOK ELEMENT -->
+    <div class="row justify-content-center">
+      <div>
+        <h3>Order Book, GTN Report and AA Summary Comparision</h3>
+      </div>
+      <div class="col-md-3">
+        <div class="fileUploadContainer orderBook" appDnd [ngClass]="(isOORProcessing || isOTRProcessing || isSAProcessing || isOLRProcessing ) && 'isProcessing'">
+          <div class="spinner-border loader" role="status" *ngIf="isOBProcessing">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <input type="file" #fileDropRef id="fileDropRef" accept=".xls,.xlsx"
+            (change)="onFileChange('OBVPOFile', $event.target.files)"
+            [disabled]="isOORProcessing || isOTRProcessing || isSAProcessing || isOLRProcessing"
+           />
+          <h5>
+            Order Book
+          </h5>
+
+          <img *ngIf="!APLOBFileObject" src="assets/images/ic-upload-file.svg" width="45px" alt="">
+          <img *ngIf="!!APLOBFileObject" src="assets/images/ic-file.svg" width="30px" alt="file">
+
+          <h6>
+            {{APLOBFileObject ? APLOBFileObject.name : 'Drop File Here'}}
+            <span *ngIf="APLOBFileObject">({{formatBytes(APLOBFileObject.size)}})</span>
+          </h6>
+
+          <label class="browseButton" [ngClass]="APLOBFileObject && 'change'" for="fileDropRef">{{APLOBFileObject ? 'Change File' : 'Browse for file'}}</label>
+          <div *ngIf="APLOBFileObject" class="processButtonHolder">
+            <button nbButton class="bg-primary submit-btn" (click)="onUploadOB()">Upload Order Book</button>
+          </div>
+        </div>
+      </div>
+      <!-- OOR BOOK NEW ELEMENT -->
+
+      <div class="col-md-3">
+        <div class="fileUploadContainer orderBook" appDnd [ngClass]="(isOORProcessing || isOTRProcessing || isSAProcessing || isOLRProcessing ) && 'isProcessing'">
+          <div class="spinner-border loader" role="status" *ngIf="isOBProcessing">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <input type="file" #fileDropRef id="fileDropRef" accept=".xls,.xlsx"
+            (change)="onFileChange('AASFile', $event.target.files)"
+            [disabled]="isOORProcessing || isOTRProcessing || isSAProcessing || isOLRProcessing"
+           />
+          <h5>
+            AAS Sheet
+          </h5>
+
+          <img *ngIf="!AASFileObject" src="assets/images/ic-upload-file.svg" width="45px" alt="">
+          <img *ngIf="!!AASFileObject" src="assets/images/ic-file.svg" width="30px" alt="file">
+
+          <h6>
+            {{AASFileObject ? AASFileObject.name : 'Drop File Here'}}
+            <span *ngIf="AASFileObject">({{formatBytes(AASFileObject.size)}})</span>
+          </h6>
+
+          <label class="browseButton" [ngClass]="AASFileObject && 'change'" for="fileDropRef">{{AASFileObject ? 'Change File' : 'Browse for file'}}</label>
+          <div *ngIf="AASFileObject" class="processButtonHolder">
+            <button nbButton class="bg-primary submit-btn" (click)="onUploadAA()">Upload AA Summary</button>
+          </div>
+        </div>
+      </div>
+      <!-- OOR BOOK NEW ELEMENT -->
+
+      <div class="col-md-3">
+        <div class="fileUploadContainer" appDnd [ngClass]="(isOBProcessing || isOTRProcessing || isSAProcessing || isOLRProcessing) && 'isProcessing'">
+          <div class="spinner-border loader" role="status" *ngIf="isOORProcessing">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <input type="file" #fileDropRef id="fileDropRef" accept=".xls,.xlsx"
+          (change)="onFileChange('GTNFile', $event.target.files)"
+          [disabled]="isOBProcessing || isOTRProcessing || isSAProcessing || isOLRProcessing"
+          />
+          <h5>
+            GTN Report
+          </h5>
+          
+          <img *ngIf="!PVHSSFileObject" src="assets/images/ic-upload-file.svg" width="45px" alt="">
+          <img *ngIf="!!PVHSSFileObject" src="assets/images/ic-file.svg" width="30px" alt="file">
+          
+          <h6>
+            {{PVHSSFileObject ? PVHSSFileObject.name : 'Drop File Here'}}
+            <span *ngIf="PVHSSFileObject">({{formatBytes(PVHSSFileObject.size)}})</span>
+          </h6>
+          
+          <label class="browseButton" [ngClass]="PVHSSFileObject && 'change'" for="fileDropRef">{{PVHSSFileObject ? 'Change File' : 'Browse for file'}}</label>
+          <div *ngIf="PVHSSFileObject" class="processButtonHolder">
+            <button nbButton class="bg-primary submit-btn" (click)="onCompareGTN2()">Upload & Compare GTN</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- OOR BOOK NEW ELEMENT END -->
+
+    <!-- ORDER BOOK ELEMENT -->
+    <div class="row justify-content-center">
+      <div>
+        <h3>Order Book, GTN Report, Cost Log and AA Sheet Comparision</h3>
+      </div>
+      <div class="col-md-3">
+        <div class="fileUploadContainer orderBook" appDnd [ngClass]="(isOORProcessing || isOTRProcessing || isSAProcessing || isOLRProcessing ) && 'isProcessing'">
+          <div class="spinner-border loader" role="status" *ngIf="isOBProcessing">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <input type="file" #fileDropRef id="fileDropRef" accept=".xls,.xlsx"
+            (change)="onFileChange('OBVPOFile', $event.target.files)"
+            [disabled]="isOORProcessing || isOTRProcessing || isSAProcessing || isOLRProcessing"
+           />
+          <h5>
+            Order Book
+          </h5>
+
+          <img *ngIf="!APLOBFileObject" src="assets/images/ic-upload-file.svg" width="45px" alt="">
+          <img *ngIf="!!APLOBFileObject" src="assets/images/ic-file.svg" width="30px" alt="file">
+
+          <h6>
+            {{APLOBFileObject ? APLOBFileObject.name : 'Drop File Here'}}
+            <span *ngIf="APLOBFileObject">({{formatBytes(APLOBFileObject.size)}})</span>
+          </h6>
+
+          <label class="browseButton" [ngClass]="APLOBFileObject && 'change'" for="fileDropRef">{{APLOBFileObject ? 'Change File' : 'Browse for file'}}</label>
+          <div *ngIf="APLOBFileObject" class="processButtonHolder">
+            <button nbButton class="bg-primary submit-btn" (click)="onUploadOB()">Upload Order Book</button>
+          </div>
+        </div>
+      </div>
+      <!-- OOR BOOK NEW ELEMENT -->
+
+      <div class="col-md-3">
+        <div class="fileUploadContainer orderBook" appDnd [ngClass]="(isOORProcessing || isOTRProcessing || isSAProcessing || isOLRProcessing ) && 'isProcessing'">
+          <div class="spinner-border loader" role="status" *ngIf="isOBProcessing">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <input type="file" #fileDropRef id="fileDropRef" accept=".xls,.xlsx"
+            (change)="onFileChange('GTNFile', $event.target.files)"
+            [disabled]="isOORProcessing || isOTRProcessing || isSAProcessing || isOLRProcessing"
+           />
+          <h5>
+            GTN Report
+          </h5>
+
+          <img *ngIf="!PVHSSFileObject" src="assets/images/ic-upload-file.svg" width="45px" alt="">
+          <img *ngIf="!!PVHSSFileObject" src="assets/images/ic-file.svg" width="30px" alt="file">
+
+          <h6>
+            {{PVHSSFileObject ? PVHSSFileObject.name : 'Drop File Here'}}
+            <span *ngIf="PVHSSFileObject">({{formatBytes(PVHSSFileObject.size)}})</span>
+          </h6>
+
+          <label class="browseButton" [ngClass]="PVHSSFileObject && 'change'" for="fileDropRef">{{PVHSSFileObject ? 'Change File' : 'Browse for file'}}</label>
+          <div *ngIf="PVHSSFileObject" class="processButtonHolder">
+            <button nbButton class="bg-primary submit-btn" (click)="onUploadGTN()">Upload GTN</button>
+          </div>
+        </div>
+      </div>
+      <!-- OOR BOOK NEW ELEMENT -->
+
+      <div class="col-md-3">
+        <div class="fileUploadContainer orderBook" appDnd [ngClass]="(isOORProcessing || isOTRProcessing || isSAProcessing || isOLRProcessing ) && 'isProcessing'">
+          <div class="spinner-border loader" role="status" *ngIf="isOBProcessing">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <input type="file" #fileDropRef id="fileDropRef" accept=".xls,.xlsx"
+            (change)="onFileChange('AASFile', $event.target.files)"
+            [disabled]="isOORProcessing || isOTRProcessing || isSAProcessing || isOLRProcessing"
+           />
+          <h5>
+            AA Summary
+          </h5>
+
+          <img *ngIf="!AASFileObject" src="assets/images/ic-upload-file.svg" width="45px" alt="">
+          <img *ngIf="!!AASFileObject" src="assets/images/ic-file.svg" width="30px" alt="file">
+
+          <h6>
+            {{AASFileObject ? AASFileObject.name : 'Drop File Here'}}
+            <span *ngIf="AASFileObject">({{formatBytes(AASFileObject.size)}})</span>
+          </h6>
+
+          <label class="browseButton" [ngClass]="AASFileObject && 'change'" for="fileDropRef">{{AASFileObject ? 'Change File' : 'Browse for file'}}</label>
+          <div *ngIf="AASFileObject" class="processButtonHolder">
+            <button nbButton class="bg-primary submit-btn" (click)="onUploadAA()">Upload AAS</button>
+          </div>
+        </div>
+      </div>
+      <!-- OOR BOOK NEW ELEMENT -->
+
+      <div class="col-md-3">
+        <div class="fileUploadContainer" appDnd [ngClass]="(isOBProcessing || isOTRProcessing || isSAProcessing || isOLRProcessing) && 'isProcessing'">
+          <div class="spinner-border loader" role="status" *ngIf="isOORProcessing">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <input type="file" #fileDropRef id="fileDropRef" accept=".xls,.xlsx"
+          (change)="onFileChange('CLFile', $event.target.files)"
+          [disabled]="isOBProcessing || isOTRProcessing || isSAProcessing || isOLRProcessing"
+          />
+          <h5>
+            Cost Log
+          </h5>
+          
+          <img *ngIf="!CLOGFileObject" src="assets/images/ic-upload-file.svg" width="45px" alt="">
+          <img *ngIf="!!CLOGFileObject" src="assets/images/ic-file.svg" width="30px" alt="file">
+          
+          <h6>
+            {{CLOGFileObject ? CLOGFileObject.name : 'Drop File Here'}}
+            <span *ngIf="CLOGFileObject">({{formatBytes(CLOGFileObject.size)}})</span>
+          </h6>
+          
+          <label class="browseButton" [ngClass]="CLOGFileObject && 'change'" for="fileDropRef">{{CLOGFileObject ? 'Change File' : 'Browse for file'}}</label>
+          <div *ngIf="CLOGFileObject" class="processButtonHolder">
+            <button nbButton class="bg-primary submit-btn" (click)="onCompareCL()">Upload & Compare CL</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- OOR BOOK NEW ELEMENT END -->
+
+    <!-- Under development - RavinduJ - Ends -->
+  </nb-card-body>
+</nb-card>
+
+<ngx-comparison-model></ngx-comparison-model>
+<ngx-comparison-model2></ngx-comparison-model2>
+<ngx-comparison-model3></ngx-comparison-model3>
+<ngx-comparison-model4></ngx-comparison-model4>
